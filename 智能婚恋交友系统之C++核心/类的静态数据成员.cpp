@@ -11,6 +11,24 @@ void testxg() {//测试析构函数的函数
 	cout << "测试函数结束\n";
 }//h1消亡
 
+void testjt() {//测试调用静态数据成员的普通函数
+	Human h1;//为了调用静态数据成员而创建的对象,没有意义
+	cout << "总人数:"<<h1.getHumancount()<< endl;
+}
+
+void testjt1() {//测试类的静态方法,通过静态方法访问静态数据成员
+	//创建类的静态成员函数后,访问类的静态数据成员的方法
+	cout << "总人数:" << Human::getHumancount() << endl;//直接通过类名来调用
+	//这方法属于整个类,不属于单个对象
+	//类名:静态方法
+	//静态方法相当于是静态一样跑到类外面了.
+
+	//下面是类的声明
+	//int getHumancount();//访问静态数据成员的方法,普通的类函数,有bug
+	//类名:静态方法,不能使用this指针,只能访问全局数据成员
+	//static int getHumancount();//类的静态成员函数,访问静态数据成员的方法
+}
+
 int main(void) {
 
 	while (0) {
@@ -65,17 +83,21 @@ int main(void) {
 		break;
 	}
 
-	while (1) {//析构函数(最后的晚餐)
+	while (0) {//析构函数(最后的晚餐)测试
 		testxg();
 		Human aa;
 
 		cout << "总人数:" << HumanCount << endl;
-		cout << "总人数:" << aa.getHumancount()<< endl;
+		cout << "总人数:" << aa.getHumancount() << endl;
 		//cout << "总人数:" << Humancount << endl;
 		break;
 	}
-
-
+	while (1) {//静态数据成员的测试
+		testxg();//析构函数
+		testjt1();//通过类访问//类名:静态方法,不能使用this指针,只能访问全局数据成员
+		testjt();//通过对象访问
+		break;
+	}
 
 	system("pause");
 	return 0;
