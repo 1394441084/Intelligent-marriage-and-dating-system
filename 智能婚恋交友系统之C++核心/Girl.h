@@ -6,10 +6,10 @@ using namespace std;
 #define FACE_COEFFICIENT 100  //颜值系数
 
 class Boy;
-
+//class(英语意思):类(不是指"班级")
 class Girl
 {
-public:
+public://公有的
 	Girl();
 	Girl(string name, int age, int faceScore);
 	Girl(string name,int age,int height,string chest,int faceScore,int salary);
@@ -24,7 +24,8 @@ public:
 	string basic_information()const;//基本信息
 	bool satisfied(const Boy& boy)const;//是否满意
 	static void inputGirls(vector<Girl>&girls);//输入多个girl对象的方法接口
-private:
+	//static(英语意思):静态
+private://私有的
 	string name="没有name呢";//名字
 	int age=0;//年龄,单位岁
 	int height=0;//身高,单位cm

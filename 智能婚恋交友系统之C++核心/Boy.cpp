@@ -2,6 +2,7 @@
 
 Boy::Boy()
 {
+	//cout<<"调用我了\n";
 	name = "";
 	age = 0;
 	height = 0;
@@ -92,6 +93,8 @@ bool Boy::satisfied(const Girl& girl) const
 
 void Boy::inputBoys(vector<Boy>& boys)
 {
+//类的static方法内不能调用这个类的非static方法(实例方法),因为static方法独立于类,是用类名调用,不属于单个对象
+	//getage();//示例,当然也不能访问非static数据成员(实例数据成员)
 	string name;
 	int salary;
 	string degree;

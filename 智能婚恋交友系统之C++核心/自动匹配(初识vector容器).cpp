@@ -41,15 +41,41 @@ int main(void) {
 
 	//实现自动匹配
 	while (1) { 
+		/*测试文本
+杨过 15000 985/211 
+郭靖 8000 大专
+段誉 50000 富二代
+0
+小龙女 18 95
+如花  25 79
+秋香  26 90
+李莫愁 30 100
+0
+		*/
+
 	vector<Boy>boys;//空容器
 	vector<Girl>girls;
 	Boy::inputBoys(boys);//boys是引用参数
 	Girl::inputGirls(girls);
 	cout << "-----------输出结果--------------\n";
 	autoPair(boys,girls);
-
 	break;
 	}
+
+	//vector容器的陷阱,vector(英语意思):矢量,向量;
+	while (0) { 
+		Boy boy1, boy2, boy3;//定义了三个对象
+		vector<Boy>boys;//定义了boys[]对象;
+		boys.push_back(boy1);//push_back方法:boys[0]=boy1;进行了类似拷贝构造函数,不是调用自定义的
+		boys.push_back(boy2);
+		boys.push_back(boy3);
+		
+		boys[0].vectortest();//改的是boys[]数组的值
+		cout<<"vector对象:"<<boys[0].getage() << endl;
+		cout << "boy1对象:" << boy1.getage() << endl;
+		
+		break; }
+
 
 	system("pause");
 	return 0;

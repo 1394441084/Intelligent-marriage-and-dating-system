@@ -25,6 +25,9 @@ public:
 	string basic_information()const;//基本信息
 	bool satisfied(const Girl& girl)const;//是否满意
 	static void inputBoys(vector<Boy>&boys);//输入多个boy对象的方法接口
+	void vectortest() {//测试vector容器陷阱的测试
+		age += 10;
+	}
 private:
 	string name="";//姓名
 	int age=0;//年龄，单位：岁
