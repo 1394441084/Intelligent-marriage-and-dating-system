@@ -142,7 +142,7 @@ int main(void) {
 	}
 	
 	//下标运算符重载 []
-	while (0) {
+	while (1) {
 
 		pork p("猪猪侠", 1000, 100);
 		/*
@@ -214,7 +214,7 @@ int main(void) {
 		break; }
 
 	//类类型转类类型
-	while (1) { 
+	while (0) { 
 		pork p("", 2000, 50);
 		Cow c = p;
 		char* n = p;
