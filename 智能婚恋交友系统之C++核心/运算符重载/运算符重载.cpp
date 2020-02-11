@@ -20,6 +20,14 @@
 
 using namespace std;
 
+ostream& operator<<(ostream& os, const Cow& cow0)
+{
+	cow0.name ? os<< "牛的名字:" << cow0.name << "\t牛的体重:"
+		<< cow0.weight :
+		os << "牛的体重:" << cow0.weight;
+	return os;
+}
+
 pork operator-(const Cow& cow1, const Cow& cow2) {//使用友元函数实现运算符重载
 	int tmp = (cow1.weight - cow2.weight)*2;
 	return pork(tmp);
@@ -53,7 +61,7 @@ istream& operator>>(istream& is, pork& pork) {
 	//cout << pork.name << endl;//打印了葺葺葺葺葺,解决这问题:重载=运算符,好像也不顶用呀
 	
 	cout << "第?头猪\t姓名:?\t体重:?\t单价:?\n";
-	is >> pork.ID >> name1 >> pork.weight >> pork.price;
+	is >> pork.ID >> name1 >> pork.weight >> pork.price;//由于cin保存不了空格,所以不需要理会name1是否为空
 	pork.name = (char*)malloc((name1.length() + 1) * sizeof(char));//分配空间大小
 	//将name1拷贝到pork.name,由于string是从0开始计算,所以加1;
 	strcpy_s(pork.name, name1.length() + 1, name1.c_str());
@@ -61,7 +69,8 @@ istream& operator>>(istream& is, pork& pork) {
 }
 
 int main(void) {
-	while (0) { //使用成员函数实现运算符重载示例:
+	//使用成员函数实现运算符重载示例:
+	while (0) { 
 		Cow c1(100);
 		Cow c2(200);
 		//pork p =c1 + c2;//调用的是c1.operator+(c2);
@@ -75,7 +84,8 @@ int main(void) {
 		break;
 	}
 
-	while (0) { //使用友元函数实现运算符重载示例:
+	//使用友元函数实现运算符重载示例:
+	while (0) { 
 		Cow c1(100);
 		Cow c2(200);
 
@@ -91,7 +101,8 @@ int main(void) {
 		break;
 	}
 
-	while (0) { //友元函数和成员函数重载示例:
+	//友元函数和成员函数重载示例:
+	while (0) { 
 		Cow c(100);
 		Cow c1 = c + 200;//300
 		Cow c2 = 300 + c;//必须用友元函数来做
@@ -101,7 +112,8 @@ int main(void) {
 		break;
 	}
 
-	while (0) {// =运算符重载
+	// =运算符重载
+	while (0) {
 		pork p("小猪", 50, 30); pork p1(80), p2(90);
 		cout << p.describe() << endl;
 		cout << p1.describe() << endl;
@@ -114,7 +126,8 @@ int main(void) {
 		break;
 	}
 
-	while (0) { //关系运算符重载
+	//关系运算符重载
+	while (0) { 
 		Goat y1(80), y2(100);
 		if (y1 > y2) {
 			cout << "y1重\n";
@@ -127,8 +140,9 @@ int main(void) {
 		}
 		break;
 	}
-
-	while (0) {//下标运算符重载 
+	
+	//下标运算符重载 []
+	while (0) {
 
 		pork p("猪猪侠", 1000, 100);
 		/*
@@ -138,15 +152,20 @@ int main(void) {
 		else {
 			cout << "kongkong\n";
 		}*/
-
+	
 		//优化后,即可读,又能避免错误
-		cout << p[WEIGHT_KEY] << "\t" << p["45"] << "\t" << p[PRICE_KEY] << endl;
+
+		//当使用operator int()const;//会出现重大错误"pork::operator []": 2个重载有相似的转换
+		//cout << p[WEIGHT_KEY] << "\t" << p["45"] << "\t" << p[PRICE_KEY] << endl;//使用字符串来进行读写不是很兼容
+
 		cout << "-----------重载后----------\n";
 		cout << p[weight_key] << "\t" << p[id_key] << "\t" << p[price_key] << endl;
 		break;
 	}
 
-	while (1) {//输出输入运算符重载
+
+	//输出输入运算符重载
+	while (0) {
 		pork p("猪猪侠", 1000, 100);
 		pork p1(300);
 		/*使用成员函数重载<<运算符
@@ -171,6 +190,40 @@ int main(void) {
 	cout << size(n) << endl;
 	cout << strlen(n.c_str()) << endl;
 	*/
+
+	//普通类型转类类型
+	while (0) {
+		pork pork1 = 1000;//体重 构造函数pork(int);
+		pork pork2 = "huahua";//名字 构造函数pork(char *);
+
+		cout << pork1 << endl;
+		cout << pork2 << endl;
+		break;
+	}
+
+	//类类型转普通类型
+	while (0) { 
+		Cow c(250);
+		Cow a("而已");
+		int weight = c;//250
+		char* name = a;//"而已"
+
+		cout << a.describe() << endl;
+		cout << weight << endl;
+		cout << name << endl;
+		break; }
+
+	//类类型转类类型
+	while (1) { 
+		pork p("", 2000, 50);
+		Cow c = p;
+		char* n = p;
+		int i = p;
+		cout << p << "\n";
+		cout << c << "\n";
+		cout << n << endl;
+		cout << i << endl;
+		break; }
 
 	//_CrtDumpMemoryLeaks();//检测动态内存泄漏
 	system("pause");

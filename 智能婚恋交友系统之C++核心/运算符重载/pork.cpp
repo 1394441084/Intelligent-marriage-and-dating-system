@@ -8,12 +8,27 @@ int pork::id = 0;
 
 pork::pork(int weight)
 {
+	const char* defaulName = "空";
+	this->name = new char[strlen(defaulName) + 1];//+1存放结束符,从0开始计算,到结束符停止,空串长度为0,但存放了'\0',所以开辟的空要为1.
+	strcpy_s(this->name, strlen(defaulName) + 1, defaulName);//这里如果结束符没有复制的话,就会出现使用左参时会指向其它地方出现崩溃或者bug
 	this->weight = weight;
+	this->price = 0;
+	this->ID = ++id;
+}
+
+pork::pork(const char* name)
+{
+	if (!name)name = "空";
+	this->name = new char[strlen(name) + 1];//+1存放结束符,从0开始计算,到结束符停止,空串长度为0,但存放了'\0',所以开辟的空要为1.
+	strcpy_s(this->name, strlen(name) + 1, name);//这里如果结束符没有复制的话,就会出现使用左参时会指向其它地方出现崩溃或者bug
+	this->weight = 0;
+	this->price = 0;
+	this->ID = ++id;
 }
 
 pork::pork(const char* name, int weight, int price)
 {
-	if (!name)name = "空";
+	if (name==NULL || name == " " || name == "\t" || name =="")name = "空空如也";
 	this->name = new char[strlen(name)+1];//+1存放结束符,从0开始计算,到结束符停止,空串长度为0,但存放了'\0',所以开辟的空要为1.
 	strcpy_s(this->name, strlen(name)+1, name);//这里如果结束符没有复制的话,就会出现使用左参时会指向其它地方出现崩溃或者bug
 	this->weight = weight;
@@ -33,14 +48,14 @@ pork& pork::operator=(const pork& p)
 	return *this;
 }
 
-int pork::operator[](string i)
+int pork::operator[](string i)const
 {//为了使程序更加的健壮,使用宏定义能够很好的避免错误
 	if (i == ID_KEY) { return ID; }
 	else if (i == WEIGHT_KEY) { return weight; }
 	else if (i == PRICE_KEY) { return price; }
 	else { return -1; }
 }
-int pork::operator[](int i)
+int pork::operator[](int i)const
 {
 	if (i == id_key) { return ID; }
 	else if (i == weight_key) { return weight; }
@@ -61,6 +76,16 @@ ostream& pork::operator<<(ostream& os) const
 		os << "猪的体重:" << weight;
 	return os;
 }*/
+
+pork::operator int () const
+{
+	return weight;
+}
+
+pork::operator char* () const
+{
+		return name;
+}
 
 pork::~pork()
 {

@@ -18,14 +18,15 @@ typedef enum {
 class pork //猪肉类
 {
 public:
-	pork(int weight = 0);
-	pork(const char* name = "猪", int weight = 0, int price = 0);
+	pork(int weight = 0);//普通类型转类类型
+	pork(const char* name);
+	pork(const char* name, int weight, int price);
 	//重载赋值运算符
 	pork& operator=(const pork& p);
 
 	//下标运算符重载
-	int operator[](string i);
-	int operator[](int i);
+	int operator[](string i)const;
+	int operator[](int i)const;
 	//char* operator[](string i);//由于C++规则,所以不能重载返回类型不一样的
 
 	// i输入 o输出运算符重载
@@ -34,6 +35,10 @@ public:
 	/*使用成员函数重载<<运算符
 	ostream& operator<<(ostream& os)const;//可以连续调用
 	*/
+
+	//类类型转普通类型(类型运算符重载不需返回类型)
+	operator int ()const;//"pork::operator []": 2个重载有相似的转换
+	operator char* ()const;
 
 	~pork();
 
